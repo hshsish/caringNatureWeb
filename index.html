@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caring Nature - Pet Nutrition Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            /* background-color:#fff4e6; */
+        }
+ 
+
+
+        .navbar {
+            background-color:#fff4e6;
+            padding: 1rem;
+            color: #3c2f2f;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.5rem;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #3c2f2f;
+            text-decoration: none;
+            font-size: 1.1rem;
+        }
+
+        .hero {
+            position: relative;
+            height: 90vh;
+            background-image: url("images/secondcat.jpg");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 2rem;
+            overflow: hidden;
+        }   
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("images/secondcat.jpg"); 
+            background-size: cover;
+            background-position: center; 
+            filter: blur(2px); 
+            z-index: 1; 
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4); 
+            z-index: 2; 
+        }
+
+        .hero > * {
+            position: relative;
+            z-index: 3; 
+        }
+
+        .subtitle {
+            text-transform: uppercase;
+            color: #be9b7b;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            z-index: 3;
+        }
+
+        .title {
+            color: #fff4e6;
+            font-size: 3.5rem;
+            max-width: 800px;
+            line-height: 1.2;
+            z-index: 3;
+        }
+
+        .description {
+            color: #be9b7b;
+            font-size: 1.2rem;
+            max-width: 600px;
+            z-index: 3;
+        }
+
+        .content-section {
+            padding: 1rem 2rem;
+            text-align: center;
+            background-color: #fff4e6;
+        }
+
+        .content-section.dark {
+            background-color: #fff4e6;
+            color: #4b3832;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: inherit;
+            padding: 40px;
+            color:  #693b3b;
+        }
+
+        .section-description {
+            max-width: 800px;
+            margin: 20px  auto;
+            line-height: 1.6;
+            font-size: 1.1rem;
+            color: #4b3832;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            flex: 1;
+            min-width: 300px;
+            max-width: 350px;
+            padding: 1.2rem;
+            border-radius: 8px;
+            background-color: #be9b7b;
+            color: #4b3832;
+            text-align: left;
+        }
+
+        .card-number {
+            width: 40px;
+            height: 40px;
+            background-color: #693b3b;
+            color: #fff4e6;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .dark .card-number {
+            background-color: #fff4e6;
+            color: #693b3b;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #693b3b;
+        }
+
+        .dark .card-title {
+            color: #693b3b;
+        }
+
+        .card-description {
+            line-height: 1.5;
+            color: #fff4e6;
+        }
+
+        .floating-button {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 50px;
+            height: 50px;
+            background-color: #e6a69a;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .ingredients-list {
+            list-style-type: none;
+            padding: 0;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .ingredient-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+            margin-bottom: 60px;
+            text-align: left;
+        }
+
+        .number-circle {
+            width: 45px;
+            height: 45px;
+            border: 2px solid #693b3b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #693b3b;
+            font-size: 24px;
+            flex-shrink: 0;
+        }
+
+        .ingredient-content h3 {
+            color: #693b3b;
+            font-size: 20px;
+            margin: 0 0 15px 0;
+            font-weight: normal;
+        }
+
+        .ingredient-content p {
+            color: #4b3832;
+            font-size: 1rem;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .best-section-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            text-align: center;
+            padding: 40px;
+            color:  #be9b7b;
+        }
+
+        .best-food-section {
+            padding: 0rem 6rem;
+            background-color: #fff4e6;
+        }   
+
+        .best-food-content {
+            flex: 1;
+        }
+
+        .best-food-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            gap: 6rem;
+        }
+
+        .best-food-image {
+            flex: 0 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            gap: 2rem;
+        }
+        .best-food-image img {
+            height: 500px;
+            width: 400px;
+            object-fit: cover;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 2rem;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .feature-icon img {
+            width: 100%;
+            height: auto;
+        }
+
+        .feature-content h3 {
+            color: #be9b7b;
+            margin: 0 0 0.5rem 0;
+            font-size: 20px;
+        }
+
+        .feature-content p {
+            color: #4b3832;
+            margin: 0;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        .holistic-food {
+            padding: 40px 20px;
+            background-color: #fff4e6;
+            font-family: Arial, sans-serif;
+        }
+
+        .holistic-food-title {
+            text-align: center;
+            color: #333;
+            font-size: 2rem;
+            /* margin-bottom: 40px; */
+        }
+
+        .food-brands {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .brand-card {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .brand-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .brand-header {
+            background: #693b3b;
+            color: #fff4e6;
+            padding: 15px 20px;
+        }
+
+        .brand-name {
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .brand-content {
+            padding: 20px;
+        }
+
+        .brand-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .features-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .feature-item {
+            display: flex;
+            align-items: center;
+            padding: 8px 0;
+            color: #333;
+        }
+
+        .feature-item::before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #693b3b;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .footer-caring-nature {
+            background-color: #fff4e6;
+            padding: 90px 0px;
+            text-align: center;
+        }
+
+        .container {
+            color: #333;
+
+        }
+
+            footer p {
+        margin-bottom: 10px;
+        }   
+    </style>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/cat.png" alt="Logo" style="width: 40px; height: auto;"> 
+       
+            <span>CARING NATURE</span>
+        </div>
+        <!-- <div class="nav-links">
+            <a href="#" onclick="handleHelp()">Help</a>
+            <a href="#" onclick="handleMore()">INF</a>
+        </div> -->
+    </nav>
+
+    <main class="hero">
+        <p class="subtitle">DISCOVER HOW TO SELECT FOOD THAT ENSURES YOUR PET'S WELL-BEING WITHOUT HARM</p>
+        <h1 class="title">Proper Nutrition – The Key to Your Pet's Health</h1>
+        <p class="description">How to choose the right food to ensure your pet lives a long and healthy life</p>
+    </main>
+
+    <section class="content-section dark">
+        <h1 class="section-title">Choosing the Right Food for Your Pet</h1>
+        <p class="section-description">
+            Choosing the right food for your pets is a crucial aspect of ensuring their health and well-being. 
+            Proper nutrition not only contributes to your pet's overall condition but can also significantly extend 
+            their lifespan. In this article, we will discuss which ingredients to avoid, the best diets for indoor cats, 
+            how a pet's age influences their vitamin needs, and how nutrition affects a pet's health and longevity.
+        </p>
+    </section>
+
+    <section class="content-section">
+        <h2 class="section-title">How Nutrition Affects Health and Longevity</h2>
+        <p class="section-description">
+            Proper nutrition directly impacts your pet's health and lifespan. Research shows that a balanced diet can reduce 
+            the risk of chronic diseases, such as:
+        </p>
+        <div class="cards-container">
+            <div class="card">
+                <h3 class="card-title">Obesity</h3>
+                <p class="card-description">Leads to numerous health problems, including diabetes, heart disease, and joint issues. Foods high in fiber can help control weight.</p>
+            </div>
+            <div class="card">
+                <h3 class="card-title">Dental Problems</h3>
+                <p class="card-description">Foods with a firm texture can contribute to dental and gum health.</p>
+            </div>
+            <div class="card">
+                <h3 class="card-title">Organ Diseases</h3>
+                <p class="card-description">Poor nutrition can lead to liver and kidney diseases. It's essential to choose foods with the necessary nutrients to support the health of these organs.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="content-section dark">
+        <h2 class="section-title">Harmful Ingredients to Avoid</h2>
+        <p class="section-description">
+            There are several ingredients you should avoid when choosing food for your cat
+        </p>
+        
+        <ul class="ingredients-list">
+            <li class="ingredient-item">
+                <div class="number-circle">1</div>
+                <div class="ingredient-content">
+                    <h3>Artificial Preservatives and Colorings:</h3>
+                    <p>These can cause allergic reactions and negatively impact your pet's health. Examples include BHT, BHA, and ethoxyquin.</p>
+                </div>
+            </li>
+            
+            <li class="ingredient-item">
+                <div class="number-circle">2</div>
+                <div class="ingredient-content">
+                    <h3>Excess Carbohydrates:</h3>
+                    <p>Foods high in corn, soy, or wheat can lead to obesity and diabetes in cats.</p>
+                </div>
+            </li>
+            
+            <li class="ingredient-item">
+                <div class="number-circle">3</div>
+                <div class="ingredient-content">
+                    <h3>Meat By-products:</h3>
+                    <p>Often low-quality protein sources that do not provide the necessary nutrients. It's better to choose foods that specify the type of meat (e.g., chicken, beef).</p>
+                </div>
+            </li>
+
+            <li class="ingredient-item">
+                <div class="number-circle">4</div>
+                <div class="ingredient-content">
+                    <h3>Artificial Flavorings:</h3>
+                    <p>These can lead to dependency and provide no nutritional value.</p>
+                </div>
+            </li>
+        </ul>
+    </section>
+ 
+    <section class="best-food-section">
+        <h2 class="best-section-title">Ideal Food for Indoor Cats</h2>
+        <div class="best-food-container">
+            <div class="best-food-content">
+                <ul class="features-list">
+                    <li class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#693b3b" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+                                <path d="M2 12h20"/>
+                            </svg>
+                        </div>
+                        <div class="feature-content">
+                            <h3>High Protein Content</h3>
+                            <p>Cats are obligate carnivores, and their diet should include sufficient animal protein. It's best to choose foods where meat or fish is the first ingredient.</p>
+                        </div>
+                    </li>
+
+                    <li class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#693b3b" stroke-width="2">
+                                <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+                            </svg>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Balanced Fats</h3>
+                            <p>Fats are necessary for the normal functioning of the body, so it's important that the food contains beneficial fatty acids, such as Omega-3 and Omega-6.</p>
+                        </div>
+                    </li>
+
+                    <li class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#693b3b" stroke-width="2">
+                                <path d="M12 20h9"/>
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                            </svg>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Carbohydrates and Fiber</h3>
+                            <p>Foods with low carbohydrate content are preferable since cats do not require large amounts of carbohydrates. Fiber helps maintain digestive health.</p>  
+                        </div>
+                    </li>
+
+                    <li class="feature-item">
+                        <div class="feature-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#693b3b" stroke-width="2">
+                                <path d="M12 20h9"/>
+                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
+                            </svg>
+                        </div>
+                        <div class="feature-content">
+                            <h3>Vitamins and Minerals</h3>
+                            <p>The food should contain essential vitamins and minerals, such as calcium, phosphorus, and B vitamins, which play crucial roles in maintaining bone health, dental health, and overall metabolism.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="best-food-image">
+                <img src="images/thirdcat.jpg" alt="Cat food selection" />
+            </div>
+        </div>
+    </section>
+
+    <section class="best-food-section">
+
+        <h2 class="best-section-title">Holistic cat food we can recommend</h2>
+        <p class="section-description">
+            Holistic cat food has gained popularity due to its high quality standards and complete composition. 
+            Unlike many traditional pet foods, holistic options do not contain artificial additives, preservatives, or fillers, making them safer and more beneficial for your pet's health. Here are some of them:
+        </p>
+
+    </section>
+
+<section class="holistic-food">
+    
+    <div class="food-brands">
+
+        <article class="brand-card">
+            <header class="brand-header">
+                <h3 class="brand-name">Wellness</h3>
+            </header>
+            <div class="brand-content">
+                <p class="brand-description">Offers dry and canned food as well as a special line of moist dry food for finicky eaters. Each product contains human grade ingredients, whole sources of meat and fruits and vegetables for balance.</p>
+                <ul class="features-list">
+                    <li class="feature-item">Human grade ingredients</li>
+                    <li class="feature-item">Grain-free options</li>
+                    <li class="feature-item">Special line for picky eaters</li>
+                    <li class="feature-item">Various jerky treats available</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="brand-card">
+            <header class="brand-header">
+                <h3 class="brand-name">Earth Naturals</h3>
+            </header>
+            <div class="brand-content">
+                <p class="brand-description">The Feline All Life Stages dry cat food contains 100 percent natural ingredients. The company uses deboned chicken as a primary source of protein as well as other whole food sources.</p>
+                <ul class="features-list">
+                    <li class="feature-item">100% natural ingredients</li>
+                    <li class="feature-item">Deboned chicken protein</li>
+                    <li class="feature-item">No artificial additives</li>
+                    <li class="feature-item">Whole food sources</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="brand-card">
+            <header class="brand-header">
+                <h3 class="brand-name">Halo</h3>
+            </header>
+            <div class="brand-content">
+                <p class="brand-description">Sells both dry and canned natural cat food. The dry food products use whole ingredients and do not contain any grain or wheat fillers. The canned food, known as Spot's Stew, comes in various flavors.</p>
+                <ul class="features-list">
+                    <li class="feature-item">100% natural ingredients</li>
+                    <li class="feature-item">Grain-free options</li>
+                    <li class="feature-item">Multiple protein sources</li>
+                    <li class="feature-item">No by-products</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="brand-card">
+            <header class="brand-header">
+                <h3 class="brand-name">Blue Buffalo</h3>
+            </header>
+            <div class="brand-content">
+                <p class="brand-description">Line includes dry and wet foods formulated with high protein content and natural ingredients. The Blue Basics line was designed specifically for sensitive stomachs.</p>
+                <ul class="features-list">
+                    <li class="feature-item">High protein content</li>
+                    <li class="feature-item">Sensitive stomach formula</li>
+                    <li class="feature-item">Natural ingredients</li>
+                    <li class="feature-item">Digestive health focus</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="brand-card">
+            <header class="brand-header">
+                <h3 class="brand-name">Orijen</h3>
+            </header>
+            <div class="brand-content">
+                <p class="brand-description">Orijen provides cat food that aligns with the principles of biologically appropriate nutrition. These foods contain high-quality ingredients, including meat, fish, eggs, and fresh fruits and vegetables. All recipes are designed to meet the natural needs of cats.</p>
+                <ul class="features-list">
+                    <li class="feature-item">Fresh, regional ingredients</li>
+                    <li class="feature-item">High protein formulas</li>
+                    <li class="feature-item">No fillers or by-product</li>
+                    <li class="feature-item">Grain-free options</li>
+                </ul>
+            </div>
+        </article>
+
+        <article class="brand-card">
+            <header class="brand-header">
+                <h3 class="brand-name">Stella & Chewy's</h3>
+            </header>
+            <div class="brand-content">
+                <p class="brand-description">Stella & Chewy's offers high-quality cat food made with only human-grade ingredients. Their formulas include whole sources of meat as well as fruits and vegetables for balanced nutrition. The foods come in various forms, including dry, wet, and freeze-dried options.</p>
+                <ul class="features-list">
+                    <li class="feature-item">Human-grade ingredients</li>
+                    <li class="feature-item">Grain-free options</li>
+                    <li class="feature-item">Freeze-dried raw options</li>
+                    <li class="feature-item">No artificial preservatives</li>
+                </ul>
+            </div>
+        </article>
+    </div>
+</section>
+
+<section class="footer-caring-nature">
+    <div class="container">
+        <footer>
+            <p>&copy; CARING NATURE</p>
+
+            <img src="images/cat.png" alt="Logo" style="width: 40px; height: auto;"> 
+        </footer>
+    </div>
+</section>
+
+
+    <script>
+        function handleHelp() {
+            alert('Help center opened');
+        }
+
+        function handleMore() {
+            alert('More options menu opened');
+        }
+    </script>
+</body>
+</html>
